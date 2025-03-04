@@ -174,4 +174,14 @@ and an old generation. When objects are first created, they are placed in the nu
 4. Old Generation — Major GC (Full Mark-Compact)
    Mark Sweep Algorithm
 
-   
+https://github.com/v8/v8/tree/master/test/cctest/interpreter/bytecode_expectations
+https://nodejs.org/en/learn/asynchronous-work/event-loop-timers-and-nexttick
+eventloop code in libuv: https://github.com/libuv/libuv/blob/v1.x/src/unix/core.c#L427
+libuv event loop: https://docs.libuv.org/en/v1.x/design.html
+
+
+One cycle of event loo is knows as tick.
+Timer (setTimeout/setInterval) -> Poll (event loo wait here while there is no event/thread are occupied and all files are read, socket are read,I/O operation are done here) -> check(setImmediate)-> close (socket close)
+
+^                                        ^
+|process.nextTick() -> promise callbacks | ==> it will call before every tick
